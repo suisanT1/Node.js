@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const { title } = require("process");
 const router = express.Router();
 const rootDir = require("../util/path");
 const products = [];
