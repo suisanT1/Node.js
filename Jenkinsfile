@@ -9,7 +9,7 @@ pipeline {
                 echo "Building.."
                 sh '''
                 echo "doing build stuff.."
-                pip install -r requirement.txt
+                pip install fire==0.4.0
                 '''
             }
         }
@@ -18,7 +18,7 @@ pipeline {
                 echo "Testing.."
                 sh '''
                 python3 hello.py
-                python3 hello.py --nmae=Brad
+                python3 hello.py --name=Brad
                 '''
             }
         }
