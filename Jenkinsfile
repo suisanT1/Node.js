@@ -3,7 +3,9 @@ pipeline {
     //     node {
     //         label 'docker-agent-p'
     //     }
-    agent any
+    agent {
+        dockerfile true
+    }
     triggers {
       pollSCM 'H/2 * * * *'
     }
@@ -31,6 +33,7 @@ pipeline {
                 echo 'Deliver....'
                 sh '''
                 echo "doing delivery stuff.."
+                echo myCustomEnvVar = $myCustomVal
                 '''
             }
         }
