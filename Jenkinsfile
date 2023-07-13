@@ -17,7 +17,11 @@ pipeline {
                 '''
             }
         }
-        stage('Test') {
+        stage('Test') 
+	  when {
+	    branch "dev*"
+	  }	
+		{
             steps {
                 echo "Testing.."
                 sh '''
