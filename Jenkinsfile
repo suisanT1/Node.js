@@ -1,44 +1,36 @@
 pipeline {
-    // agent {
-    //     node {
-    //         label 'docker-agent-p'
-    //     }
+
     agent any
 
-    triggers {
-      pollSCM 'H/2 * * * *'
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('suisan-dockerhub')
     }
     stages {
         stage('Build') {
             steps {
                 echo "Building.."
-                sh '''
-                echo "doing build stuff.."
-                pip install fire==0.4.0
-                '''
+                sh './jenkins/build.sh'
             }
         }
-        stage('Test')	{
-            
-	when {
-	  branch ("dev*")
-	}
-	steps {
-                echo "Testing.."
-                sh '''
-                python3 hello.py
-                python3 hello.py --name=Brad
-                '''
+        stage('Login')	{
+	        steps {
+                echo "Logining.."
+                sh './jenkins/login.sh'
             }
         }
-        stage('Deliver') {
+        stage('Push') {
             steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                echo myCustomEnvVar = $myCustomVal
-                '''
+                echo 'Pushing....'
+                sh './jenkins/push.sh'
             }
+        }
+    }
+    post {
+        always {
+            sh './jenkins/logout.sh'
         }
     }
 }
