@@ -1,22 +1,41 @@
-pipeline{
+pipeline {
+    // agent {
+    //     node {
+    //         label 'docker-agent-p'
+    //     }
     agent any
+    triggers {
+      pollSCM 'H/2 * * * *'
+    }
     stages {
-        stage("build"){
-            steps{
-                echo "building the application"
+        stage('Build') {
+            steps {
+                echo "Building.."
+                sh '''
+                echo "doing build stuff.."
+                pip install fire==0.4.0
+                '''
             }
         }
-        stage("test"){
+        stage('Test') 
 	  when {
-		branch "dev*"
-	}
-            steps{
-                echo "testing the application"
+	    branch "dev*"
+	  }	
+		{
+            steps {
+                echo "Testing.."
+                sh '''
+                python3 hello.py
+                python3 hello.py --name=Brad
+                '''
             }
         }
-            stage("deploy"){
-            steps{
-                echo "deploying the application"  
+        stage('Deliver') {
+            steps {
+                echo 'Deliver....'
+                sh '''
+                echo "doing delivery stuff.."
+                '''
             }
         }
     }
