@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t suisan/ss-alpine:latest
+docker build -t suisan/ss-alpine:latest .
