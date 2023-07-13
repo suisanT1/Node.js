@@ -7,6 +7,9 @@ pipeline{
             }
         }
         stage("test"){
+	  when {
+		branch "dev*"
+	}
             steps{
                 echo "testing the application"
             }
