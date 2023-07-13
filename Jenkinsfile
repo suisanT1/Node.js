@@ -3,9 +3,8 @@ pipeline {
     //     node {
     //         label 'docker-agent-p'
     //     }
-    agent {
-        dockerfile true
-    }
+    agent any
+
     triggers {
       pollSCM 'H/2 * * * *'
     }
