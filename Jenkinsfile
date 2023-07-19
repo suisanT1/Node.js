@@ -24,8 +24,12 @@ pipeline {
                 '''
             }
         }
-        stage('Test') {
-            steps {
+        stage('Test')	{
+            
+	when {
+	  branch ("dev*")
+	}
+	steps {
                 echo "Testing.."
                 sh '''
                 python3 hello.py
