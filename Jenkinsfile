@@ -3,6 +3,7 @@ pipeline {
         node {
             label 'docker-agent-p'
         }
+    }
     // agent { dockerfile {
     //     filname 'Dockerfile'
     //     dir 'build'
