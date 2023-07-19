@@ -3,15 +3,16 @@ pipeline {
     //     node {
     //         label 'docker-agent-p'
     //     }
-    agent { dockerfile {
-        filname 'Dockerfile'
-        dir 'build'
-        label 'my-label'
+    // agent { dockerfile {
+    //     filname 'Dockerfile'
+    //     dir 'build'
+    //     label 'my-label'
         
-    } }
-    triggers {
-      pollSCM 'H/2 * * * *'
-    }
+    // } }
+    agent any
+    // triggers {
+    //   pollSCM 'H/2 * * * *'
+    // }
     stages {
         stage('Build') {
             steps {
